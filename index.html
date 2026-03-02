@@ -3,41 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Favorite Person</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
+    <title>For You | Three Years</title>
+    <style>
+        :root {
+            --primary: #e11d48;
+            --primary-light: #fff1f2;
+            --text-dark: #4c0519;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: #fffafb;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #ffe4e6;
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links button {
+            background: none; border: none;
+            margin-left: 1.5rem;
+            color: #fb7185;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links button.active { color: var(--primary); text-decoration: underline; }
+
+        /* --- Layout --- */
+        main {
+            max-width: 800px;
+            margin: 120px auto 60px;
+            padding: 0 20px;
+        }
+
+        .section { display: none; opacity: 0; transform: translateY(20px); transition: var(--transition); }
+        .section.active { display: block; opacity: 1; transform: translateY(0); }
+
+        /* --- Home Section --- */
+        .hero { text-align: center; }
+        .heart-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            animation: pulse 2s infinite;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        h1 { font-size: 3.5rem; font-family: serif; font-style: italic; margin-bottom: 1rem; }
+
+        /* --- Timeline --- */
+        .timeline-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--primary);
+        }
+
+        /* --- Interactive Love Jar --- */
+        .jar-container {
+            background: white;
+            border: 2px dashed #fecdd3;
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .btn-reveal {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 10px 15px -3px rgba(225, 29, 72, 0.3);
+        }
+
+        .btn-reveal:hover { transform: scale(1.05); background: #be123c; }
+        .btn-reveal:active { transform: scale(0.95); }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            nav { padding: 1rem; }
+        }
+    </style>
 </head>
-<body class="bg-pink-50 min-h-screen flex flex-col items-center justify-center font-sans overflow-x-hidden">
+<body>
 
-    <div id="heart-container" class="fixed inset-0 pointer-events-none"></div>
-
-    <main class="relative z-10 bg-white p-8 md:p-12 rounded-3xl shadow-2xl max-w-2xl text-center border-4 border-pink-100 mx-4">
-        <div class="mb-6">
-            <span class="text-5xl">❤️</span>
+    <nav>
+        <div style="font-weight: bold; color: var(--primary);">❤ AZ + HIM</div>
+        <div class="nav-links">
+            <button onclick="showSection('home')" id="btn-home" class="active">Home</button>
+            <button onclick="showSection('timeline')" id="btn-timeline">Story</button>
+            <button onclick="showSection('jar')" id="btn-jar">Reasons</button>
         </div>
-        
-        <h1 class="text-4xl font-bold text-pink-600 mb-4">To My Amazing Partner</h1>
-        
-        <p class="text-gray-700 text-lg leading-relaxed mb-8">
-            Three years ago, my life got a whole lot brighter. I wanted to build something 
-            special just to remind you how much you mean to me. You aren't just my boyfriend; 
-            you're my best friend and my greatest support.
-        </p>
+    </nav>
 
-        <div class="space-y-4 mb-8">
-            <h2 class="text-xl font-semibold text-pink-500 italic">"I love you more than code that compiles on the first try."</h2>
-        </div>
+    <main>
+        <section id="home" class="section active hero">
+            <div class="heart-icon">❤</div>
+            <h1>Three Years of Us.</h1>
+            <p>Every moment since we started has been a favorite. This is a small digital space to celebrate the man who holds my heart.</p>
+        </section>
 
-        <button id="loveBtn" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-110 active:scale-95 shadow-lg">
-            Click for a Surprise
-        </button>
+        <section id="timeline" class="section">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Our Journey</h2>
+            <div class="timeline-item">
+                <h3>Year 1</h3>
+                <p>The spark that started it all. Learning your favorite things and realizing you were the one.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Year 2</h3>
+                <p>Growing together, facing challenges, and building a foundation of trust and laughter.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Year 3</h3>
+                <p>Choosing you every single day. 1,095 days of being incredibly lucky to have you.</p>
+            </div>
+        </section>
+
+        <section id="jar" class="section">
+            <h2 style="text-align: center; margin-bottom: 1rem;">The Love Jar</h2>
+            <div class="jar-container" id="reason-display">
+                <p style="font-style: italic; font-size: 1.2rem;">Click below to see a reason why I love you...</p>
+            </div>
+            <div style="text-align: center;">
+                <button class="btn-reveal" onclick="revealReason()">New Reason</button>
+            </div>
+        </section>
     </main>
 
-    <footer class="mt-8 text-pink-400 text-sm">
-        Made with ❤️ by your favorite dev
-    </footer>
+    <script>
+        const reasons = [
+            "I love the way you support my career and coding projects.",
+            "Your kindness makes me want to be a better person.",
+            "I love our quiet moments together just as much as our adventures.",
+            "Thank you for being such an amazing figure for Khanyi.",
+            "You are my safest place in this whole world.",
+            "I love your laugh—it's my favorite sound."
+        ];
 
-    <script src="script.js"></script>
+        let lastIndex = -1;
+
+        function showSection(sectionId) {
+            // Update buttons
+            document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + sectionId).classList.add('active');
+
+            // Update sections
+            document.querySelectorAll('.section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            
+            const activeSec = document.getElementById(sectionId);
+            activeSec.style.display = 'block';
+            setTimeout(() => activeSec.classList.add('active'), 50);
+        }
+
+        function revealReason() {
+            const display = document.getElementById('reason-display');
+            let randomIndex;
+            
+            // Ensure we don't show the same reason twice in a row
+            do {
+                randomIndex = Math.floor(Math.random() * reasons.length);
+            } while (randomIndex === lastIndex);
+            
+            lastIndex = randomIndex;
+
+            // Fade out effect
+            display.style.opacity = 0;
+            
+            setTimeout(() => {
+                display.innerHTML = `<p style="font-style: italic; font-size: 1.2rem; animation: fadeIn 0.5s forwards;">"${reasons[randomIndex]}"</p>`;
+                display.style.opacity = 1;
+            }, 300);
+        }
+    </script>
 </body>
-              </html>
-              
+</html>
