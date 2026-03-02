@@ -9,28 +9,30 @@
             --primary: #e11d48;
             --primary-light: #fff1f2;
             --text-dark: #4c0519;
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.3s ease;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #fffafb;
             color: var(--text-dark);
-            line-height: 1.6;
-            overflow-x: hidden;
+            /* This ensures the content is always visible without huge scrolling */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* --- Navigation --- */
+        /* --- Fixed Navigation --- */
         nav {
             position: fixed;
             top: 0; width: 100%;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
             border-bottom: 1px solid #ffe4e6;
             z-index: 100;
-            padding: 1rem 2rem;
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -38,85 +40,84 @@
 
         .nav-links button {
             background: none; border: none;
-            margin-left: 1.5rem;
+            margin-left: 10px;
             color: #fb7185;
             cursor: pointer;
-            font-weight: 500;
-            transition: var(--transition);
+            font-weight: 600;
+            font-size: 0.9rem;
         }
 
-        .nav-links button.active { color: var(--primary); text-decoration: underline; }
+        .nav-links button.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
 
-        /* --- Layout --- */
+        /* --- Main Content Wrapper --- */
         main {
-            max-width: 800px;
-            margin: 120px auto 60px;
-            padding: 0 20px;
+            flex-grow: 1;
+            display: flex;
+            align-items: center; /* Vertically centers the content */
+            justify-content: center;
+            padding: 80px 20px 40px; /* Reduced top padding from 120px to 80px */
         }
 
-        .section { display: none; opacity: 0; transform: translateY(20px); transition: var(--transition); }
-        .section.active { display: block; opacity: 1; transform: translateY(0); }
+        .section { 
+            display: none; 
+            width: 100%;
+            max-width: 600px;
+            animation: slideUp 0.5s ease out;
+        }
 
-        /* --- Home Section --- */
+        .section.active { display: block; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- UI Elements --- */
         .hero { text-align: center; }
         .heart-icon {
-            font-size: 4rem;
+            font-size: 3rem;
             color: var(--primary);
             animation: pulse 2s infinite;
-            display: inline-block;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+            50% { transform: scale(1.1); }
         }
 
-        h1 { font-size: 3.5rem; font-family: serif; font-style: italic; margin-bottom: 1rem; }
+        h1 { font-size: 2.5rem; font-family: serif; margin-bottom: 1rem; line-height: 1.2; }
 
-        /* --- Timeline --- */
         .timeline-item {
             background: white;
-            padding: 1.5rem;
-            border-radius: 16px;
+            padding: 1.2rem;
+            border-radius: 12px;
             margin-bottom: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        /* --- Interactive Love Jar --- */
         .jar-container {
             background: white;
             border: 2px dashed #fecdd3;
-            border-radius: 24px;
-            padding: 3rem;
+            border-radius: 20px;
+            padding: 2rem;
             text-align: center;
-            min-height: 200px;
+            margin-bottom: 1.5rem;
+            min-height: 120px;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            margin-bottom: 2rem;
         }
 
         .btn-reveal {
             background: var(--primary);
             color: white;
             border: none;
-            padding: 1rem 2.5rem;
+            padding: 0.8rem 2rem;
             border-radius: 50px;
             font-weight: bold;
             cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 10px 15px -3px rgba(225, 29, 72, 0.3);
-        }
-
-        .btn-reveal:hover { transform: scale(1.05); background: #be123c; }
-        .btn-reveal:active { transform: scale(0.95); }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; }
-            nav { padding: 1rem; }
         }
     </style>
 </head>
@@ -135,29 +136,20 @@
         <section id="home" class="section active hero">
             <div class="heart-icon">❤</div>
             <h1>Three Years of Us.</h1>
-            <p>Every moment since we started has been a favorite. This is a small digital space to celebrate the man who holds my heart.</p>
+            <p>Every moment since we started has been a favorite. 1,095 days of being incredibly lucky to have you.</p>
         </section>
 
         <section id="timeline" class="section">
-            <h2 style="text-align: center; margin-bottom: 2rem;">Our Journey</h2>
-            <div class="timeline-item">
-                <h3>Year 1</h3>
-                <p>The spark that started it all. Learning your favorite things and realizing you were the one.</p>
-            </div>
-            <div class="timeline-item">
-                <h3>Year 2</h3>
-                <p>Growing together, facing challenges, and building a foundation of trust and laughter.</p>
-            </div>
-            <div class="timeline-item">
-                <h3>Year 3</h3>
-                <p>Choosing you every single day. 1,095 days of being incredibly lucky to have you.</p>
-            </div>
+            <h2 style="text-align: center; margin-bottom: 1.5rem;">Our Journey</h2>
+            <div class="timeline-item"><h3>Year 1</h3><p>Where the magic began.</p></div>
+            <div class="timeline-item"><h3>Year 2</h3><p>Building our foundation together.</p></div>
+            <div class="timeline-item"><h3>Year 3</h3><p>Still choosing you every day.</p></div>
         </section>
 
         <section id="jar" class="section">
             <h2 style="text-align: center; margin-bottom: 1rem;">The Love Jar</h2>
             <div class="jar-container" id="reason-display">
-                <p style="font-style: italic; font-size: 1.2rem;">Click below to see a reason why I love you...</p>
+                <p style="font-style: italic;">Tap below for a reason why I love you...</p>
             </div>
             <div style="text-align: center;">
                 <button class="btn-reveal" onclick="revealReason()">New Reason</button>
@@ -167,50 +159,33 @@
 
     <script>
         const reasons = [
-            "I love the way you support my career and coding projects.",
-            "Your kindness makes me want to be a better person.",
-            "I love our quiet moments together just as much as our adventures.",
-            "Thank you for being such an amazing figure for Khanyi.",
-            "You are my safest place in this whole world.",
-            "I love your laugh—it's my favorite sound."
+            "I love how you always make me laugh, even on hard days.",
+            "I love the way you support my career as a developer.",
+            "You are an incredible father figure to Khanyi.",
+            "I love your kindness and your big heart.",
+            "Thank you for being my peace and my home.",
+            "I love our late-night talks and big dreams."
         ];
 
-        let lastIndex = -1;
-
         function showSection(sectionId) {
-            // Update buttons
             document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
             document.getElementById('btn-' + sectionId).classList.add('active');
 
-            // Update sections
-            document.querySelectorAll('.section').forEach(sec => {
-                sec.classList.remove('active');
-            });
-            
-            const activeSec = document.getElementById(sectionId);
-            activeSec.style.display = 'block';
-            setTimeout(() => activeSec.classList.add('active'), 50);
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            window.scrollTo(0,0); // Reset scroll just in case
         }
 
         function revealReason() {
             const display = document.getElementById('reason-display');
-            let randomIndex;
-            
-            // Ensure we don't show the same reason twice in a row
-            do {
-                randomIndex = Math.floor(Math.random() * reasons.length);
-            } while (randomIndex === lastIndex);
-            
-            lastIndex = randomIndex;
-
-            // Fade out effect
+            const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
             display.style.opacity = 0;
-            
             setTimeout(() => {
-                display.innerHTML = `<p style="font-style: italic; font-size: 1.2rem; animation: fadeIn 0.5s forwards;">"${reasons[randomIndex]}"</p>`;
+                display.innerHTML = `<p style="font-style: italic; font-size: 1.1rem;">"${randomReason}"</p>`;
                 display.style.opacity = 1;
-            }, 300);
+            }, 200);
         }
     </script>
 </body>
-</html>
+    </html>
+
